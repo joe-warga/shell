@@ -1,0 +1,129 @@
+#!/bin/bash
+# include the above line to have the shell script run by bash.
+# Can put the file location and program
+# for instance, replace /bin/bash with /usr/bin/python at the top of a python script and you can have and executable .py script (does not have to be .sh
+
+
+echo -e \nAuthor: Joe Warga\nDate: 2014-03-13\n
+
+echo now number of arguments passed:
+echo $# #this will show the number of arguments
+echo
+echo arguments are:
+echo $@ #this will list the arguments
+echo
+
+: <<COMMENT
+Can put multiline comments in this area
+This script is to test out shell scripting
+
+to run, type the following in bash
+./{file.sh}
+
+to make the script executable
+chmod +x {file.sh}
+
+#!/{location}/{program with which to execute script, this case bash is terminal}
+
+A series of independent commands can be grouped together as a single command by separating them by semicolons ";". end
+
+Pipes "|" also cause the execution of multiple processes from a single command line. With a pipe, the standard output of the process before the pipe is redirected to the standard input of the process after the pipe.
+
+Any commands enclosed within parentheses are run in a separate shell, similar to the "direct" or "csh" execution of a shell script. As you can see, technically, this is not a means of running a shell script at all, but it is similar.
+
+Quick reference for usful commands (--h for more info)
+sleep 3 # sleeps for number of seconds
+ls # list directory
+grep # searches for strings in whatever
+ls | grep word # searches for word in the output of ls
+arch # print machine architecture
+bzip2 sh.exe -k # compresses file sh.exe and (-k) keeps the original file
+tar # compressor with many functions
+head # prints the header of a file
+echo # print out stuff
+$USER # is the signed in user
+$? # is the exit code
+cat file #prints file
+cat file1 file2 > file12 # concatinates the first two files into the third
+rev file # cat but reverses each line of the file
+tac file # cat, but reads last line first
+rm file # deletes file
+cp file1 file2 # copy
+mv source_dir target_dir # moves from one to the other, can be used to rename dir
+alias [shorthand]='[command]' # to make perminant, add to ~/.bashrc then logout/login
+ls > text.txt # writes output to file
+seq 1 2 10 # prints from 1 to 10 in increments of 2, defaults to increment of 1 if left out, defaults to start at 1 if left out
+for i in `seq 10` ; do echo "Joe" ; done # prints Joe 10 times
+
+passing arguments:
+$0 is the name of the command
+$1 first parameter
+$2 second parameter
+$3 third parameter etc. etc
+$# total number of parameters
+$@ all the parameters will be listed
+
+
+statements and loops
+if [ -z "$1" ] # got to find out what -z means
+then
+	echo you aint got no arguemnt
+else
+	echo arguments are:
+	echo $@
+fi
+
+#for loop
+for a in apple banana pear; do echo "fuck" $a; done
+# this will loop through the fruit and echo fuck and the fruit name
+
+# loop a number of times
+for i in $(seq 1 20); do echo -n "What up world ${i} "; echo ; done
+COMMENT
+
+: <<SKIP
+This chunck skips to the the string after ": <<"
+SKIP
+
+: <<MikeRubelExampleCode
+The script Mike Rubel wrote to extract tarballz:
+#!/bin/bash
+for f in *.tar ; do
+    tar xf $f
+    dname=’echo $f | cut -c 1-13’
+    cp $dname/img.tiff img-${dname}.tiff # copy dname/img.tiff to img-dname.tiff
+    # this copies a tif from the folder and takes it outside and tags the folders name to it
+    rm -r ${dname} # remove, recursive, the folders with name dname(which is a variable)
+# rmdir is equivalent to rm -r
+done
+
+f is a variable, standing for any file with a .tar extension, hence the *
+do is what will loop through for all the f’s
+tar xf extracts from the next file
+$f is the variable
+dname is a variable about to be defined
+use $ when using a variable, not defining one
+echo prints the next thing
+| uses the code as the input to the next
+cut -c extracts the string from $f
+cp somehow takes the image out of the extracted folder and puts it in the current directory.
+rm -r somehow cleans up the extracted
+MikeRubelExampleCode
+
+
+echo my baby is stephanie # echo prints the following
+# comment
+echo
+echo you are ; who am i # semicolon separates what would be on different lines, like would need to be done when actually using the command line
+echo
+echo The directory you are in is
+pwd # prints the current directory
+echo
+echo The files in this directory are
+ls # list directory
+echo
+echo The date is
+date # date and time
+
+echo
+exit
